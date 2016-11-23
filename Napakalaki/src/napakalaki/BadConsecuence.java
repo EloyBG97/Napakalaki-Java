@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 package napakalaki;
-import java.util.*;
+import java.util.ArrayList;
 /**
  *
  * @author Adri
  */
 public class BadConsecuence {
-    static final int MAXTREASURES=10;
+    static final int MAXTREASURES = 10;
     private String text;
     private int levels;
     private int nVisibleTreasures;
@@ -51,10 +51,6 @@ public class BadConsecuence {
         this.specificHiddenTreasures = new ArrayList(tHidden);
     }
     
-    public boolean isEmpty() {
-        return (specificVisibleTreasures.isEmpty() && specificHiddenTreasures.isEmpty());
-    }
-    
     public String getText(){
         return text;
     }
@@ -82,17 +78,15 @@ public class BadConsecuence {
     public ArrayList getSpecificVisibleTreasures(){
         return new ArrayList(specificVisibleTreasures);
     }
-       
-    public void substractVisibleTreasure(Treasure T){
-        specificVisibleTreasures.remove(T.getType());
-    }
     
-    public void substractHiddenTreasure(Treasure T){
-         specificHiddenTreasures.remove(T.getType());
-    }
+    //public BadConsecuence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){ }
     
-   public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){}
-   
+    public boolean isEmpty(){
+        return (nVisibleTreasures == 0 && 
+                nHiddenTreasures == 0 &&
+                specificHiddenTreasures.isEmpty() &&
+                specificVisibleTreasures.isEmpty());
+    }
     
     public String toString(){
         return "\n\t" + text + "\n\tlevel = " + Integer.toString(levels) 
@@ -103,4 +97,3 @@ public class BadConsecuence {
                 + specificHiddenTreasures.toString();
     }
 }
-
