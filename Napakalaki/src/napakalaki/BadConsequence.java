@@ -84,11 +84,17 @@ public class BadConsequence {
     }
        
     public void substractVisibleTreasure(Treasure T){
-        specificVisibleTreasures.remove(T.getType());
+        if(!specificVisibleTreasures.isEmpty())
+            if(!specificVisibleTreasures.remove(T.getType()))
+                if(nVisibleTreasures > 1)
+                    nVisibleTreasures--;
     }
     
     public void substractHiddenTreasure(Treasure T){
-         specificHiddenTreasures.remove(T.getType());
+        if(!specificHiddenTreasures.isEmpty())
+            if(!specificHiddenTreasures.remove(T.getType()))
+                if (nHiddenTreasures > 1)
+                    nVisibleTreasures--;
     }
     
    //public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){}

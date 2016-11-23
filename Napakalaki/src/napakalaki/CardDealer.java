@@ -237,9 +237,27 @@ public class CardDealer {
         return instance;
     }
     
-    //public Treasure nextTreasure(){}
+    public Treasure nextTreasure(){
+        Treasure treasure;
+        
+        if (unusedTreasures.isEmpty()){
+            for (int i = 0 ; i < usedTreasures.size() ; i++)
+                unusedTreasures.add(usedTreasures.get(i));
+            
+            usedTreasures.clear();
+            shuffleTreasures();
+        }
+        
+        treasure = unusedTreasures.get(0);
+        usedTreasures.add(treasure);
+        unusedTreasures.remove(treasure);
+        
+        return treasure;
+    }
     
-    //public Monster nextMonster(){}
+    public Monster nextMonster(){
+        return null; //corregir
+    }
     
     public void giveTreasureBack(Treasure t){
         usedTreasures.add(t);
