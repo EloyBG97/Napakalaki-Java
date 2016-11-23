@@ -33,9 +33,9 @@ public class BadConsequence {
     
     public BadConsequence(String text, boolean death){
         this.text = text;
-        this.levels = 0;
-        this.nVisibleTreasures = Integer.MAX_VALUE;
-        this.nHiddenTreasures = Integer.MAX_VALUE;
+        this.levels = Player.MAXLEVEL;
+        this.nVisibleTreasures = MAXTREASURES;
+        this.nHiddenTreasures = MAXTREASURES;
         this.death = death;
         this.specificHiddenTreasures = new ArrayList();
         this.specificVisibleTreasures = new ArrayList();
