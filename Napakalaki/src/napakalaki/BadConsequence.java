@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author Adri
  */
-public class BadConsecuence {
+public class BadConsequence {
     static final int MAXTREASURES=10;
     private String text;
     private int levels;
@@ -20,7 +20,7 @@ public class BadConsecuence {
     private ArrayList<TreasureKind> specificVisibleTreasures;
     
     
-    public BadConsecuence(String text, int levels, int nVisible, int nHidden){
+    public BadConsequence(String text, int levels, int nVisible, int nHidden){
         this.text = text;
         this.levels = levels;
         this.nVisibleTreasures = nVisible;
@@ -31,7 +31,7 @@ public class BadConsecuence {
         
     }
     
-    public BadConsecuence(String text, boolean death){
+    public BadConsequence(String text, boolean death){
         this.text = text;
         this.levels = 0;
         this.nVisibleTreasures = Integer.MAX_VALUE;
@@ -41,7 +41,7 @@ public class BadConsecuence {
         this.specificVisibleTreasures = new ArrayList();
     }
     
-    public BadConsecuence(String text, int levels, ArrayList<TreasureKind> tVisible, ArrayList<TreasureKind> tHidden){
+    public BadConsequence(String text, int levels, ArrayList<TreasureKind> tVisible, ArrayList<TreasureKind> tHidden){
         this.text = text;
         this.levels = levels;
         this.nVisibleTreasures = 0;
@@ -91,7 +91,7 @@ public class BadConsecuence {
          specificHiddenTreasures.remove(T.getType());
     }
     
-   public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){}
+   //public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){}
    
     
     public String toString(){
@@ -103,4 +103,3 @@ public class BadConsecuence {
                 + specificHiddenTreasures.toString();
     }
 }
-

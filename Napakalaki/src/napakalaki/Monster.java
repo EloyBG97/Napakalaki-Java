@@ -12,10 +12,10 @@ package napakalaki;
 public class Monster {
     private String name;
     private int combatLevel;
-    private BadConsecuence bc;
+    private BadConsequence bc;
     private Prize prize;
     
-    public Monster(String name, int level, BadConsecuence bc, Prize prize){
+    public Monster(String name, int level, BadConsequence bc, Prize prize){
         this.name = name;
         this.combatLevel = level;
         this.bc = bc;
@@ -30,7 +30,7 @@ public class Monster {
         return combatLevel;
     }   
     
-    public BadConsecuence getBadConsequence(){
+    public BadConsequence getBadConsequence(){
         return bc;
     }
     
