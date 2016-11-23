@@ -5,12 +5,13 @@
  */
 package napakalaki;
 
+import java.util.*;
 /**
  *
- * @author eloy
+ * @author Adri
  */
 public class Dice {
-    private static final Dice instance=null;
+    private static final Dice instance = new Dice();
     
     private Dice(){}
     
@@ -18,5 +19,8 @@ public class Dice {
         return instance;
     }
     
-    public int nextNumber(){}
+    public int nextNumber(){
+        Random rnd = new Random();
+        return (int) (rnd.nextDouble()*6+1);
+    }
 }
