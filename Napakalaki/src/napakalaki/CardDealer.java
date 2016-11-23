@@ -256,7 +256,21 @@ public class CardDealer {
     }
     
     public Monster nextMonster(){
-        return null; //corregir
+        Monster monster;
+        
+        if (unusedMonster.isEmpty()){
+            for (int i = 0 ; i < usedMonster.size() ; i++)
+                unusedMonster.add(usedMonster.get(i));
+            
+            usedMonster.clear();
+            shuffleMonsters();
+        }
+        
+        monster = unusedMonster.get(0);
+        usedMonster.add(monster);
+        unusedMonster.remove(monster);
+        
+        return monster;
     }
     
     public void giveTreasureBack(Treasure t){
