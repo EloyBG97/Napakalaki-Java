@@ -242,12 +242,15 @@ public class Player {
     }
     
     public void discardAllTreasures(){
-        if (!visibleTreasures.isEmpty())
-            for (Treasure t : visibleTreasures)
+        ArrayList<Treasure> visible = new ArrayList(visibleTreasures);
+        ArrayList<Treasure> hidden = new ArrayList(hiddenTreasures);
+        
+        if (!visible.isEmpty())
+            for (Treasure t : visible)
                 discardVisibleTreasure(t);
         
-        if (!hiddenTreasures.isEmpty())
-            for (Treasure t : hiddenTreasures)
+        if (!hidden.isEmpty())
+            for (Treasure t : hidden)
                 discardHiddenTreasure(t);
                     
     }

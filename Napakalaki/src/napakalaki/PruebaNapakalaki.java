@@ -11,6 +11,7 @@ import java.util.Arrays;
 /**
  *
  * @author Adri
+ * 
  */
 public class PruebaNapakalaki {
 
@@ -175,8 +176,7 @@ public class PruebaNapakalaki {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args){
         addMonsters();
         
         System.out.print(pierdeSoloNivel());
