@@ -55,12 +55,43 @@ public class Player {
         pendingBadConsequence = b;
     }
     
-    private void applyPrize(Monster m){}
+    private void applyPrize(Monster m){
+        level += m.getLevelsGained();
+        
+        for (int i = 0 ; i < m.getTreasuesGained() ; i++)
+            hiddenTreasures.add(CardDealer.getInstance().nextTreasure());
+    }
     
-    private void applyBadConsequence(Monster m){}
+    private void applyBadConsequence(Monster m){
+        BadConsequence badConsequence = m.getBadConsequence();
+        level -= badConsequence.getLevels();
+        
+        BadConsequence pendingBad = badConsequence.adjustToFitTreasureList(visibleTreasures, hiddenTreasures);
+        setPendingBadConsequence(pendingBad);
+    }
     
     private boolean canMakeTreasureVisible(Treasure t){
-        return true; //corregir
+        boolean can = true;
+        int numOneHand = 0, numBothHands = 0, numIguales = 0;
+        
+        for (Treasure i : visibleTreasures){
+            if (i.getType() == TreasureKind.ONEHAND)
+                numOneHand++;
+            else if(i.getType() == TreasureKind.BOTHHANDS)
+                numBothHands++;
+            else if (i.getType() == t.getType())
+                numIguales++;
+        }
+        
+        if (t.getType() == TreasureKind.ONEHAND){
+            if (!(numOneHand < 2 && numBothHands != 0) || numBothHands != 0)
+                can = false;
+        }
+        else if (numIguales != 0){
+            can = false;
+        }
+        
+        return can;
     }
     
     private int howManyVisibleTreasures(TreasureKind tKind){
@@ -75,9 +106,8 @@ public class Player {
     }
     
     private void dieIfNoTreasures(){
-        if(hiddenTreasures.isEmpty() && visibleTreasures.isEmpty()){
-            dead=true;
-        }
+        if(hiddenTreasures.isEmpty() && visibleTreasures.isEmpty())
+            dead = true;
     }
     
     private Treasure giveMeATreasure(){
@@ -143,9 +173,23 @@ public class Player {
         }
     }
     
-    public void discardVisibleTreasure(Treasure t){}
+    public void discardVisibleTreasure(Treasure t){
+        visibleTreasures.remove(t);
+        
+        if(pendingBadConsequence != null && !pendingBadConsequence.isEmpty())
+            pendingBadConsequence.substractVisibleTreasure(t);
+        
+        this.dieIfNoTreasures();
+    }
     
-    public void discardHiddenTreasure(Treasure t){}
+    public void discardHiddenTreasure(Treasure t){
+        hiddenTreasures.remove(t);
+        
+        if(pendingBadConsequence != null && !pendingBadConsequence.isEmpty())
+            pendingBadConsequence.substractVisibleTreasure(t);
+        
+        this.dieIfNoTreasures();
+    }
     
     public boolean validState(){
         return (hiddenTreasures.size() <= 4 && pendingBadConsequence.isEmpty());
@@ -198,6 +242,13 @@ public class Player {
     }
     
     public void discardAllTreasures(){
-        hiddenTreasures.removeAll(hiddenTreasures);
+        if (!visibleTreasures.isEmpty())
+            for (Treasure t : visibleTreasures)
+                discardVisibleTreasure(t);
+        
+        if (!hiddenTreasures.isEmpty())
+            for (Treasure t : hiddenTreasures)
+                discardHiddenTreasure(t);
+                    
     }
 }

@@ -97,7 +97,9 @@ public class BadConsequence {
                     nVisibleTreasures--;
     }
     
-   //public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){}
+   public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){
+       return null;
+   }
    
     
     public String toString(){

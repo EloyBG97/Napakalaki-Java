@@ -27,11 +27,14 @@ public class Napakalaki {
     }
     
     private Player nextPlayer(){
-        //if (primera jugada)
-        //  int pos = Dice.getInstance().nextNumber();
+        int pos;
         
-        //currentPlayer = players.get(pos % players.size());
+        if (currentPlayer == null)
+            pos = Dice.getInstance().nextNumber() % players.size();
+        else
+            pos = (players.indexOf(currentPlayer) + 1) % players.size();
         
+        currentPlayer = players.get(pos);
         return currentPlayer;
     }
     
@@ -52,9 +55,19 @@ public class Napakalaki {
         return combatResult;
     }
     
-    //public void discardVisibleTreasure(ArrayList<Treasure> treasures){ }
+    public void discardVisibleTreasure(ArrayList<Treasure> treasures){
+        for (Treasure t : treasures){
+            currentPlayer.discardVisibleTreasure(t);
+            dealer.giveTreasureBack(t);
+        }
+    }
     
-    //public void discardHiddenTreasure(ArrayList<Treasure> treasures){ }
+    public void discardHiddenTreasure(ArrayList<Treasure> treasures){
+        for (Treasure t : treasures){
+            currentPlayer.discardHiddenTreasure(t);
+            dealer.giveTreasureBack(t);
+        }
+    }
     
     public void makeTreasureVisible(ArrayList<Treasure> treasures){
         Treasure t;
@@ -79,7 +92,6 @@ public class Napakalaki {
     
     public boolean nextTurn() {
         boolean stateOK = nextTurnAllowed();
-        stateOK = currentPlayer.validState();
         
         if (stateOK){
             currentMonster = dealer.nextMonster();
@@ -95,9 +107,6 @@ public class Napakalaki {
     }
     
     public boolean endOfGame(CombatResult result){
-        if (result == CombatResult.WINGAME)
-            return true;
-        else
-            return false;
+        return (result == CombatResult.WINGAME);
     }
 }
