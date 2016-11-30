@@ -57,11 +57,13 @@ public class Napakalaki {
         Random rnd = new Random();
         int idx;
         
-        do{
-            idx = rnd.nextInt() % players.size();
-        }while (players.get(idx) == currentPlayer);
-        
-        currentPlayer.setEnemy(players.get(idx));
+        for (Player p : players){
+            do{
+                idx = rnd.nextInt() % players.size();
+            }while (players.get(idx) == p);
+
+            p.setEnemy(players.get(idx));
+        }
     }
     
     public static Napakalaki getInstance(){

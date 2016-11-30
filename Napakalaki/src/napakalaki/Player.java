@@ -71,7 +71,11 @@ public class Player {
         level -= badConsequence.getLevels();
         
         BadConsequence pendingBad = badConsequence.adjustToFitTreasureList(visibleTreasures, hiddenTreasures);
-        setPendingBadConsequence(pendingBad);
+        
+        if (pendingBad.isEmpty())
+            setPendingBadConsequence(null);
+        else
+            setPendingBadConsequence(pendingBad);
     }
     
     private boolean canMakeTreasureVisible(Treasure t){
@@ -124,7 +128,7 @@ public class Player {
     }
     
     private void haveStolen(){
-        canISteal = !canISteal; 
+        canISteal = false; 
     }
     
     public String getName(){
@@ -263,6 +267,19 @@ public class Player {
     }
     
     public String toString(){
-        return name;
+        String mensaje = (name + "\nNivel: " + level
+                + "\nDead: " + dead + "\nCan I Steal: " + canISteal
+                + "\nVisible Treasures: \t" + visibleTreasures
+                + "\nHidden Treasures: \t" + hiddenTreasures
+                + "\nEnemy: " + enemy.name
+                );
+        
+        if (pendingBadConsequence != null)
+            mensaje += "\nPending Bad Consequence: \n\t" 
+                + pendingBadConsequence.toString();
+        else
+            mensaje += "\nNo hay Bad Consequence pendiente";
+        
+        return mensaje;
     }
 }
