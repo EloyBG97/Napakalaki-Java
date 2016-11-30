@@ -31,4 +31,8 @@ public class Treasure {
     public TreasureKind getType() {
            return type;
     }
+    
+    public String toString(){
+        return (name + "\nTipo: " + type + "\nBonus: " + bonus);
+    }
 }

@@ -16,8 +16,8 @@ public class Player {
     static final int  MAXLEVEL=10;
     private String name;
     private int level;
-    private boolean dead = true;
-    private boolean canISteal = true;
+    private boolean dead;
+    private boolean canISteal;
     private ArrayList<Treasure> hiddenTreasures;
     private ArrayList<Treasure> visibleTreasures;
     private Player enemy;
@@ -260,5 +260,9 @@ public class Player {
             for (Treasure t : hidden)
                 discardHiddenTreasure(t);
                     
+    }
+    
+    public String toString(){
+        return name;
     }
 }

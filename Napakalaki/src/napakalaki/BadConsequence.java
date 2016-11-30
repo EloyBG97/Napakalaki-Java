@@ -52,7 +52,8 @@ public class BadConsequence {
     }
     
     public boolean isEmpty() {
-        return (specificVisibleTreasures.isEmpty() && specificHiddenTreasures.isEmpty());
+        return (specificVisibleTreasures.isEmpty() && specificHiddenTreasures.isEmpty()
+                && nVisibleTreasures == 0 && nHiddenTreasures == 0);
     }
     
     public String getText(){
