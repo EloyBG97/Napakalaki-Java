@@ -51,7 +51,10 @@ public class Player {
     }
     
     private void decrementLevels(int l){
-        level -= l;
+        if (level - l < 0)
+            level = 0;
+        else 
+            level -= l;
     }
     
     private void setPendingBadConsequence(BadConsequence b){
@@ -233,13 +236,34 @@ public class Player {
     }
     
     public void applyPendingBadConsequence(){
-        for(Treasure v : visibleTreasures)
-            if (pendingBadConsequence.getSpecificVisibleTreasures().contains(v.getType()))
-                discardVisibleTreasure(v);
-    
-        for(Treasure h : hiddenTreasures)
-            if (pendingBadConsequence.getSpecificHiddenTreasures().contains(h.getType()))
-                discardHiddenTreasure(h);
+        ArrayList<Treasure> sVisible = new ArrayList<>(visibleTreasures);
+        ArrayList<Treasure> sHidden = new ArrayList<>(hiddenTreasures);
+        ArrayList<TreasureKind> pVisible = new ArrayList<>(pendingBadConsequence.getSpecificVisibleTreasures());
+        ArrayList<TreasureKind> pHidden = new ArrayList<>(pendingBadConsequence.getSpecificHiddenTreasures());
+        int nVisible = pendingBadConsequence.getNVisibleTreasures();
+        int nHidden = pendingBadConsequence.getNHiddenTreasures();
+        
+        dead = pendingBadConsequence.getDeath();
+        
+        if (!pVisible.isEmpty())
+            for(Treasure v : sVisible)
+                if (pVisible.contains(v.getType()))
+                    discardVisibleTreasure(v);
+        
+        if (!pHidden.isEmpty())
+            for(Treasure h : sHidden)
+                if (pHidden.contains(h.getType()))
+                    discardHiddenTreasure(h);
+        
+        if (nVisible != 0)
+            for (int i = 0 ; i < nVisible ; i++)
+                discardVisibleTreasure(visibleTreasures.get(i));
+        
+        if (nHidden != 0)
+            for (int i = 0 ; i < nHidden ; i++)
+                discardHiddenTreasure(hiddenTreasures.get(i));
+        
+        pendingBadConsequence = null;
     }
     
     public Treasure stealTreasure(){

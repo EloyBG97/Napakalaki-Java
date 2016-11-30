@@ -26,8 +26,8 @@ public class BadConsequence {
         this.nVisibleTreasures = nVisible;
         this.nHiddenTreasures = nHidden;
         this.death = false;  
-        this.specificHiddenTreasures = new ArrayList();
-        this.specificVisibleTreasures = new ArrayList();
+        this.specificHiddenTreasures = new ArrayList<>();
+        this.specificVisibleTreasures = new ArrayList<>();
         
     }
     
@@ -37,8 +37,8 @@ public class BadConsequence {
         this.nVisibleTreasures = MAXTREASURES;
         this.nHiddenTreasures = MAXTREASURES;
         this.death = death;
-        this.specificHiddenTreasures = new ArrayList();
-        this.specificVisibleTreasures = new ArrayList();
+        this.specificHiddenTreasures = new ArrayList<>();
+        this.specificVisibleTreasures = new ArrayList<>();
     }
     
     public BadConsequence(String text, int levels, ArrayList<TreasureKind> tVisible, ArrayList<TreasureKind> tHidden){
@@ -97,7 +97,7 @@ public class BadConsequence {
                 if (nHiddenTreasures > 1)
                     nVisibleTreasures--;
     }
-    
+    /*
     public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){
         BadConsequence bad = null;
         int visible = 0, hidden = 0;
@@ -135,14 +135,50 @@ public class BadConsequence {
         
         return bad;
     }
-   
+    */
+    
+    public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){
+        BadConsequence bad = null;
+        int nVisible = 0, nHidden = 0;
+        ArrayList<TreasureKind> sVisible = new ArrayList<>();
+        ArrayList<TreasureKind> sHidden = new ArrayList<>();
+        
+        if (!v.isEmpty()){
+            if (!specificVisibleTreasures.isEmpty()){
+                for (Treasure t : v)
+                    if (specificVisibleTreasures.contains(t.getType()) && !sVisible.contains(t.getType()))
+                        sVisible.add(t.getType());
+            }
+            
+            if (sVisible.isEmpty() && nVisibleTreasures > v.size())
+                nVisible = nVisibleTreasures - v.size();
+        }
+        
+        if (!h.isEmpty()){
+            if (!specificHiddenTreasures.isEmpty()){
+                for (Treasure t : h)
+                    if (specificHiddenTreasures.contains(t.getType()) && !sHidden.contains(t.getType()))
+                        sHidden.add(t.getType());
+            }
+            
+            if (sHidden.isEmpty() && nHiddenTreasures > h.size())
+                nHidden = nHiddenTreasures - h.size();
+        }
+        
+        if (nVisible != 0 || nHidden != 0)
+            bad = new BadConsequence(text,levels,nVisible,nHidden);
+        else if (!sVisible.isEmpty() || !sHidden.isEmpty())
+            bad = new BadConsequence(text,levels,sVisible,sHidden);
+        
+        return bad;
+    }
     
     public String toString(){
         return "\n\t" + text + "\n\tlevel = " + Integer.toString(levels) 
                 + "\n\tdeath = " + death + "\n\tvisible treasures = " 
-                + Integer.toString(nVisibleTreasures) + " | " 
+                + Integer.toString(nVisibleTreasures) + "  |  " 
                 + specificVisibleTreasures.toString() + "\n\thidden treasures = " 
-                + Integer.toString(nHiddenTreasures) + " | " 
+                + Integer.toString(nHiddenTreasures) + "  |  " 
                 + specificHiddenTreasures.toString() + "\n";
     }
 }
