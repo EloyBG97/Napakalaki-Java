@@ -6,6 +6,7 @@
 package napakalaki;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  *
@@ -19,11 +20,18 @@ public class Napakalaki {
     private Player currentPlayer;
     private ArrayList<Player> players;
  
-    private Napakalaki(){}
+    private Napakalaki(){
+        currentMonster = null;
+        dealer = CardDealer.getInstance();
+        currentPlayer = null;
+        players = new ArrayList<>();
+    }
     
     private void initPlayer(ArrayList<String> names){
         for (int i = 0 ; i < names.size() ; i++)
             players.add(new Player(names.get(i)));
+        
+        currentPlayer = nextPlayer();
     }
     
     private Player nextPlayer(){
@@ -43,6 +51,17 @@ public class Napakalaki {
             return true;
         else
             return currentPlayer.validState();
+    }
+    
+    private void setEnemies(){
+        Random rnd = new Random();
+        int idx;
+        
+        do{
+            idx = rnd.nextInt() % players.size();
+        }while (players.get(idx) == currentPlayer);
+        
+        currentPlayer.setEnemy(players.get(idx));
     }
     
     public static Napakalaki getInstance(){
@@ -70,16 +89,15 @@ public class Napakalaki {
     }
     
     public void makeTreasureVisible(ArrayList<Treasure> treasures){
-        Treasure t;
-        
-        for (int i = 0 ; i < treasures.size() ; i++){
-            t = treasures.get(i);
+        for (Treasure t : treasures)
             currentPlayer.makeTreasureVisible(t);
-        }
     }
     
     public void initGame(ArrayList<String> players){
         initPlayer(players);
+        setEnemies();
+        dealer.initCards();
+        nextTurn();
     }
     
     public Player getCurrentPlayer(){

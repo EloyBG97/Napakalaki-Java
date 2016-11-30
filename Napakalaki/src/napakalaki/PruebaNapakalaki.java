@@ -171,14 +171,4 @@ public class PruebaNapakalaki {
         
         return aux;
     }
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args){
-        addMonsters();
-        
-        System.out.print(pierdeSoloNivel());
-    }
 }

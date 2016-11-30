@@ -17,7 +17,7 @@ public class Player {
     private String name;
     private int level;
     private boolean dead = true;
-    private static boolean canISteal = true;
+    private boolean canISteal = true;
     private ArrayList<Treasure> hiddenTreasures;
     private ArrayList<Treasure> visibleTreasures;
     private Player enemy;
@@ -26,8 +26,12 @@ public class Player {
     public Player(String name){
         this.name = name;
         this.level = 1;
+        this.dead = true;
+        this.canISteal = true;
         this.hiddenTreasures = new ArrayList();
         this.visibleTreasures = new ArrayList();
+        this.enemy = null;
+        this.pendingBadConsequence = null;
     }
     
     private void bringToLife(){
@@ -37,8 +41,8 @@ public class Player {
     private int getCombatLevel(){
         int lvl = level;
         
-        for (int i = 0 ; i < visibleTreasures.size() ; i++)
-            lvl += visibleTreasures.get(i).getBonus();
+        for (Treasure t : visibleTreasures)
+            lvl += t.getBonus();
         
         return lvl;
     }
@@ -97,8 +101,8 @@ public class Player {
     private int howManyVisibleTreasures(TreasureKind tKind){
         int howMany = 0;
         
-        for (int i = 0 ; i < visibleTreasures.size() ; i++){
-            if (visibleTreasures.get(i).getType() == tKind)
+        for (Treasure t : visibleTreasures){
+            if (t.getType() == tKind)
                 howMany++;
         }
         
@@ -192,7 +196,10 @@ public class Player {
     }
     
     public boolean validState(){
-        return (hiddenTreasures.size() <= 4 && pendingBadConsequence.isEmpty());
+        if (pendingBadConsequence == null)
+            return (hiddenTreasures.size() <= 4);
+        else
+            return (hiddenTreasures.size() <= 4 && pendingBadConsequence.isEmpty());
     }
     
     public void initTreasures(){
