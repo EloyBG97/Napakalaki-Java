@@ -19,11 +19,12 @@ public class Napakalaki {
     private CardDealer dealer;
     private Player currentPlayer;
     private ArrayList<Player> players;
+    private static int jugada = 0;
  
     private Napakalaki(){
         currentMonster = null;
         dealer = CardDealer.getInstance();
-        currentPlayer = null;
+        currentPlayer = new Player("");
         players = new ArrayList<>();
     }
     
@@ -37,7 +38,7 @@ public class Napakalaki {
     private Player nextPlayer(){
         int pos;
         
-        if (currentPlayer == null)
+        if (jugada == 0)
             pos = Dice.getInstance().nextNumber() % players.size();
         else
             pos = (players.indexOf(currentPlayer) + 1) % players.size();
@@ -47,10 +48,10 @@ public class Napakalaki {
     }
     
     private boolean nextTurnAllowed(){
-        if (currentPlayer == null)
-            return true;
-        else
-            return currentPlayer.validState();
+        if(currentPlayer.getPendingBadConsequence() != null && !currentPlayer.getPendingBadConsequence().isEmpty())
+            currentPlayer.applyPendingBadConsequence();
+
+        return currentPlayer.validState();
     }
     
     private void setEnemies(){
@@ -59,7 +60,7 @@ public class Napakalaki {
         
         for (Player p : players){
             do{
-                idx = rnd.nextInt() % players.size();
+                idx = (int) rnd.nextInt(players.size());
             }while (players.get(idx) == p);
 
             p.setEnemy(players.get(idx));
@@ -121,6 +122,8 @@ public class Napakalaki {
             if(dead){
                 currentPlayer.initTreasures();
             }
+
+            jugada++;
         }
         
         return stateOK;

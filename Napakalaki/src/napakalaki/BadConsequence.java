@@ -76,11 +76,11 @@ public class BadConsequence {
         return death;
     }
     
-    public ArrayList getSpecificHiddenTreasures(){
+    public ArrayList<TreasureKind> getSpecificHiddenTreasures(){
         return new ArrayList(specificHiddenTreasures);
     }
     
-    public ArrayList getSpecificVisibleTreasures(){
+    public ArrayList<TreasureKind> getSpecificVisibleTreasures(){
         return new ArrayList(specificVisibleTreasures);
     }
        

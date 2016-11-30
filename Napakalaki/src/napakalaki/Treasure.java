@@ -14,7 +14,7 @@ public class Treasure {
     private int bonus;
     private TreasureKind type;
     
-    Treasure(String n,int bonus,TreasureKind t){
+    Treasure(String n, int bonus, TreasureKind t){
         this.name = n;
         this.bonus = bonus;
         this.type = t;
@@ -33,6 +33,6 @@ public class Treasure {
     }
     
     public String toString(){
-        return (name + "\n\t  Tipo: " + type + "\n\t  Bonus: " + bonus + "\n\n");
+        return ("\n\t" + name + "\t[" + type + ", +" + bonus + " ]");
     }
 }

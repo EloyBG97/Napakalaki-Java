@@ -31,7 +31,6 @@ public class Player {
         this.hiddenTreasures = new ArrayList();
         this.visibleTreasures = new ArrayList();
         this.enemy = null;
-        this.pendingBadConsequence = null;
     }
     
     private void bringToLife(){
@@ -59,6 +58,10 @@ public class Player {
         pendingBadConsequence = b;
     }
     
+    public BadConsequence getPendingBadConsequence() {
+        return pendingBadConsequence;
+    }
+    
     private void applyPrize(Monster m){
         level += m.getLevelsGained();
         
@@ -72,9 +75,7 @@ public class Player {
         
         BadConsequence pendingBad = badConsequence.adjustToFitTreasureList(visibleTreasures, hiddenTreasures);
         
-        if (pendingBad.isEmpty())
-            setPendingBadConsequence(null);
-        else
+        if (pendingBad != null && !pendingBad.isEmpty())
             setPendingBadConsequence(pendingBad);
     }
     
@@ -231,6 +232,16 @@ public class Player {
         return level;
     }
     
+    public void applyPendingBadConsequence(){
+        for(Treasure v : visibleTreasures)
+            if (pendingBadConsequence.getSpecificVisibleTreasures().contains(v.getType()))
+                discardVisibleTreasure(v);
+    
+        for(Treasure h : hiddenTreasures)
+            if (pendingBadConsequence.getSpecificHiddenTreasures().contains(h.getType()))
+                discardHiddenTreasure(h);
+    }
+    
     public Treasure stealTreasure(){
         Treasure treasure = null;
         
@@ -271,8 +282,7 @@ public class Player {
                 + "\nDead: " + dead + "\nCan I Steal: " + canISteal
                 + "\nVisible Treasures: \t" + visibleTreasures
                 + "\nHidden Treasures: \t" + hiddenTreasures
-                + "\nEnemy: " + enemy.name
-                );
+                + "\nEnemy: " + enemy.name);
         
         if (pendingBadConsequence != null)
             mensaje += "\nPending Bad Consequence: \n\t" 
