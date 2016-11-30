@@ -282,6 +282,8 @@ public class CardDealer {
     
     public void initCards(){
         instance.initMonsterCardDeck();
+        instance.shuffleMonsters();
         instance.initTreasureCardDeck();
+        instance.shuffleTreasures();
     }
 }

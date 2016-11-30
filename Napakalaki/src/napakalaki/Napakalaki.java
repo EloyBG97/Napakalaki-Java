@@ -48,10 +48,10 @@ public class Napakalaki {
     }
     
     private boolean nextTurnAllowed(){
-        if(currentPlayer.getPendingBadConsequence() != null && !currentPlayer.getPendingBadConsequence().isEmpty())
-            currentPlayer.applyPendingBadConsequence();
-
-        return currentPlayer.validState();
+        if (jugada == 0)
+            return true;
+        else
+            return currentPlayer.validState();
     }
     
     private void setEnemies(){
@@ -125,6 +125,9 @@ public class Napakalaki {
 
             jugada++;
         }
+        else if (currentPlayer.getPendingBadConsequence() != null 
+                && !currentPlayer.getPendingBadConsequence().isEmpty())
+            currentPlayer.applyPendingBadConsequence();
         
         return stateOK;
     }

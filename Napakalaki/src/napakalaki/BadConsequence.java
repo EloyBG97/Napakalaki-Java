@@ -140,9 +140,9 @@ public class BadConsequence {
     public String toString(){
         return "\n\t" + text + "\n\tlevel = " + Integer.toString(levels) 
                 + "\n\tdeath = " + death + "\n\tvisible treasures = " 
-                + Integer.toString(nVisibleTreasures) + " / " 
+                + Integer.toString(nVisibleTreasures) + " | " 
                 + specificVisibleTreasures.toString() + "\n\thidden treasures = " 
-                + Integer.toString(nHiddenTreasures) + " / " 
-                + specificHiddenTreasures.toString();
+                + Integer.toString(nHiddenTreasures) + " | " 
+                + specificHiddenTreasures.toString() + "\n";
     }
 }

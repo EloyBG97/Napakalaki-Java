@@ -33,6 +33,6 @@ public class Treasure {
     }
     
     public String toString(){
-        return ("\n\t" + name + "\t[" + type + ", +" + bonus + " ]");
+        return ("\n\t" + name + "\t[" + type + ", +" + bonus + " ] ");
     }
 }

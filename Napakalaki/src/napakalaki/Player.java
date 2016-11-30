@@ -71,7 +71,7 @@ public class Player {
     
     private void applyBadConsequence(Monster m){
         BadConsequence badConsequence = m.getBadConsequence();
-        level -= badConsequence.getLevels();
+        decrementLevels(badConsequence.getLevels());
         
         BadConsequence pendingBad = badConsequence.adjustToFitTreasureList(visibleTreasures, hiddenTreasures);
         
