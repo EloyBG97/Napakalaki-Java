@@ -51,10 +51,7 @@ public class Player {
     }
     
     private void decrementLevels(int l){
-        if (level - l < 0)
-            level = 0;
-        else 
-            level -= l;
+        level -= l;
     }
     
     private void setPendingBadConsequence(BadConsequence b){
@@ -75,6 +72,7 @@ public class Player {
     private void applyBadConsequence(Monster m){
         BadConsequence badConsequence = m.getBadConsequence();
         decrementLevels(badConsequence.getLevels());
+        dead = badConsequence.getDeath();
         
         BadConsequence pendingBad = badConsequence.adjustToFitTreasureList(visibleTreasures, hiddenTreasures);
         
@@ -83,24 +81,27 @@ public class Player {
     }
     
     private boolean canMakeTreasureVisible(Treasure t){
-        boolean can = true;
-        int numOneHand = 0, numBothHands = 0, numIguales = 0;
+        boolean can = false;
+        int numOneHand = 0, numBothHands = 0;
+        int numIguales = howManyVisibleTreasures(t.getType());
         
         for (Treasure i : visibleTreasures){
             if (i.getType() == TreasureKind.ONEHAND)
                 numOneHand++;
             else if(i.getType() == TreasureKind.BOTHHANDS)
                 numBothHands++;
-            else if (i.getType() == t.getType())
-                numIguales++;
         }
         
         if (t.getType() == TreasureKind.ONEHAND){
-            if (!(numOneHand < 2 && numBothHands != 0) || numBothHands != 0)
-                can = false;
+            if (numOneHand < 2 && numBothHands == 0)
+                can = true;
         }
-        else if (numIguales != 0){
-            can = false;
+        else if (t.getType() == TreasureKind.BOTHHANDS){
+            if (numOneHand == 0 && numBothHands == 0)
+                can = true;
+        }
+        else if (numIguales == 0){
+            can = true;
         }
         
         return can;
@@ -128,7 +129,7 @@ public class Player {
     }
     
     private boolean canYouGiveMeATreasure(){
-        return !visibleTreasures.isEmpty();
+        return !hiddenTreasures.isEmpty();
     }
     
     private void haveStolen(){
@@ -243,8 +244,6 @@ public class Player {
         int nVisible = pendingBadConsequence.getNVisibleTreasures();
         int nHidden = pendingBadConsequence.getNHiddenTreasures();
         
-        dead = pendingBadConsequence.getDeath();
-        
         if (!pVisible.isEmpty())
             for(Treasure v : sVisible)
                 if (pVisible.contains(v.getType()))
@@ -256,12 +255,12 @@ public class Player {
                     discardHiddenTreasure(h);
         
         if (nVisible != 0)
-            for (int i = 0 ; i < nVisible ; i++)
-                discardVisibleTreasure(visibleTreasures.get(i));
+            for (Treasure v : sVisible)
+                discardVisibleTreasure(v);
         
         if (nHidden != 0)
-            for (int i = 0 ; i < nHidden ; i++)
-                discardHiddenTreasure(hiddenTreasures.get(i));
+            for (Treasure h : sHidden)
+                discardHiddenTreasure(h);
         
         pendingBadConsequence = null;
     }
