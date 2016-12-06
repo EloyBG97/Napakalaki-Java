@@ -126,8 +126,10 @@ public class Napakalaki {
             jugada++;
         }
         else if (currentPlayer.getPendingBadConsequence() != null 
-                && !currentPlayer.getPendingBadConsequence().isEmpty())
+                && !currentPlayer.getPendingBadConsequence().isEmpty()){
             currentPlayer.applyPendingBadConsequence();
+            stateOK = nextTurn();
+        }
         
         return stateOK;
     }
