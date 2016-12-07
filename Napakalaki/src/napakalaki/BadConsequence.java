@@ -119,6 +119,12 @@ public class BadConsequence {
             }
             
         }
+        else{
+            if (nVisibleTreasures > v.size())
+                nVisible = v.size();
+            else if (nVisibleTreasures > 0)
+                nVisible = nVisibleTreasures - v.size();
+        }
         
         if (!h.isEmpty()){
             if (!specificHiddenTreasures.isEmpty()){
@@ -133,6 +139,12 @@ public class BadConsequence {
                 else if (nHiddenTreasures > 0)
                     nHidden = nHiddenTreasures - h.size();
             }
+        }
+        else{
+            if (nHiddenTreasures > h.size())
+                nHidden = h.size();
+            else if (nHiddenTreasures > 0)
+                nHidden = nHiddenTreasures - h.size();
         }
         
         if (nVisible != 0 || nHidden != 0)
