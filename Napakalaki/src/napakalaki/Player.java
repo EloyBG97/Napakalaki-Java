@@ -57,11 +57,13 @@ public class Player {
     }
     
     protected int getOponentLevel(Monster m){
-        return 0;   //cambiar
+        return m.getCombatLevel();
     }
     
     protected boolean shouldConvert(){
-        return false;   //cambiar
+        int i = Dice.getInstance().nextNumber();
+        
+        return (i == 1);
     }
     
     private void incrementLevels(int l){
@@ -141,12 +143,12 @@ public class Player {
             dead = true;
     }
     
-    private Treasure giveMeATreasure(){
+    protected Treasure giveMeATreasure(){
         int pos = Dice.getInstance().nextNumber() % hiddenTreasures.size();
         return hiddenTreasures.get(pos);
     }
     
-    private boolean canYouGiveMeATreasure(){
+    protected boolean canYouGiveMeATreasure(){
         return !hiddenTreasures.isEmpty();
     }
     
@@ -173,7 +175,7 @@ public class Player {
     public CombatResult combat(Monster m){
         CombatResult combatResult;
         int myLevel = getCombatLevel();
-        int monsterLevel = m.getCombatLevel();
+        int monsterLevel = getOponentLevel(m);
         
         if (!canISteal){
             Dice dice = Dice.getInstance();
@@ -191,7 +193,10 @@ public class Player {
         }
         else{
             applyBadConsequence(m);
-            combatResult = CombatResult.LOSE;
+            if (shouldConvert())
+                combatResult = CombatResult.LOSEANDCONVERT;
+            else
+                combatResult = CombatResult.LOSE;
         }
         
         return combatResult;
@@ -298,6 +303,10 @@ public class Player {
     
     public void setEnemy(Player enemy){
         this.enemy = enemy;
+    }
+    
+    protected Player getEnemy(){
+        return enemy;
     }
     
     public boolean canISteal(){

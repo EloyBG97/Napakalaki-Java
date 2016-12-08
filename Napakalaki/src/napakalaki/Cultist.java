@@ -22,4 +22,10 @@ public class Cultist {
     public int getGainedLevels(){
         return gainedLevels;
     }
+    
+    public String toString(){
+        return "Sectario"
+            + "\n+" + Integer.toString(gainedLevels) + " por cada sectario en juego"
+            + "\nNo puedes dejar de ser sectario";
+    }
 }
