@@ -56,7 +56,7 @@ public class CultistPlayer extends Player{
     public String toString(){
         String mensaje = (getName() + "\nNivel: " + getLevels()
                 + "\nDead: " + isDead() + "\nCan I Steal: " + canISteal()
-                + "\nCarta de Sectario: " + myCultistCard.toString()
+                + "\nSectario: " + myCultistCard.toString()
                 + "\nVisible Treasures: \t" + getVisibleTreasures()
                 + "\nHidden Treasures: \t" + getHiddenTreasures()
                 + "\nEnemy: " + enemy.getName());

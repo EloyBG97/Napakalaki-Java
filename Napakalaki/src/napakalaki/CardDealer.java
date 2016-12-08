@@ -107,7 +107,7 @@ public class CardDealer {
         unusedMonster.add(new Monster("Flecher",2,bc,new Prize(1,1),0));
         
         
-        bc = new BadConsequence("Estos unusedMonster resultan bastante "
+        bc = new BadConsequence("Estos monstruos resultan bastante "
                 + "superficiales y te aburren mortalmente. Estas muerto",true);
         unusedMonster.add(new Monster("Los hondos",8,bc,new Prize(2,1),0));
         
