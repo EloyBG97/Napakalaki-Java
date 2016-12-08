@@ -20,7 +20,7 @@ public class Player {
     private boolean canISteal;
     private ArrayList<Treasure> hiddenTreasures;
     private ArrayList<Treasure> visibleTreasures;
-    private Player enemy;
+    protected Player enemy;
     private BadConsequence pendingBadConsequence;
     
     public Player(String name){
@@ -33,17 +33,35 @@ public class Player {
         this.enemy = null;
     }
     
+    public Player(Player p){
+        this.name = p.name;
+        this.level = p.level;
+        this.dead = p.dead;
+        this.canISteal = p.canISteal;
+        this.hiddenTreasures = p.hiddenTreasures;
+        this.visibleTreasures = p.visibleTreasures;
+        this.enemy = p.enemy;
+    }
+    
     private void bringToLife(){
         dead = false;
     }
     
-    private int getCombatLevel(){
+    protected int getCombatLevel(){
         int lvl = level;
         
         for (Treasure t : visibleTreasures)
             lvl += t.getBonus();
         
         return lvl;
+    }
+    
+    protected int getOponentLevel(Monster m){
+        return 0;   //cambiar
+    }
+    
+    protected boolean shouldConvert(){
+        return false;   //cambiar
     }
     
     private void incrementLevels(int l){

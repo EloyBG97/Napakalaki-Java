@@ -8,18 +8,21 @@ package napakalaki;
 /**
  *
  * @author Adri
+ * 
  */
 public class Monster {
     private String name;
     private int combatLevel;
     private BadConsequence bc;
     private Prize prize;
+    private int levelChangeAgainstCultistPlayer;
     
-    public Monster(String name, int level, BadConsequence bc, Prize prize){
+    public Monster(String name, int level, BadConsequence bc, Prize prize, int levelChange){
         this.name = name;
         this.combatLevel = level;
         this.bc = bc;
         this.prize = prize;
+        this.levelChangeAgainstCultistPlayer = levelChange;
     }
     
     public String getName(){
@@ -39,12 +42,17 @@ public class Monster {
     }
     
     public int getLevelsGained() {
-           return prize.getLevels();
+        return prize.getLevels();
     }
     
     public int getTreasuesGained() {
-            return prize.getTreasures();
+        return prize.getTreasures();
     }
+    
+    public int getCombatLevelAgainstCultistPlayer(){
+        return combatLevel + levelChangeAgainstCultistPlayer;
+    }
+    
     public String toString(){
         return "Name = " + name + "\nCombat level = " 
                 + Integer.toString(combatLevel)
