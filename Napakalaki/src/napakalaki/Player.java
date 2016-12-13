@@ -83,7 +83,7 @@ public class Player {
     }
     
     private void applyPrize(Monster m){
-        level += m.getLevelsGained();
+        incrementLevels(m.getLevelsGained());
         
         for (int i = 0 ; i < m.getTreasuesGained() ; i++)
             hiddenTreasures.add(CardDealer.getInstance().nextTreasure());
@@ -324,7 +324,6 @@ public class Player {
         if (!hidden.isEmpty())
             for (Treasure t : hidden)
                 discardHiddenTreasure(t);
-                    
     }
     
     public String toString(){

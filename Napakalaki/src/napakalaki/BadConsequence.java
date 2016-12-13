@@ -28,7 +28,6 @@ public class BadConsequence {
         this.death = false;  
         this.specificHiddenTreasures = new ArrayList<>();
         this.specificVisibleTreasures = new ArrayList<>();
-        
     }
     
     public BadConsequence(String text, boolean death){
@@ -95,7 +94,7 @@ public class BadConsequence {
         if(!specificHiddenTreasures.isEmpty())
             if(!specificHiddenTreasures.remove(T.getType()))
                 if (nHiddenTreasures > 1)
-                    nVisibleTreasures--;
+                    nHiddenTreasures--;
     }
     
     public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){
