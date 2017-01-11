@@ -25,6 +25,6 @@ public class DeathBadConsequence extends NumericBadConsequence{
     }
     
     public String toString(){
-        return super.toString() + "\n\tdeath = " + death;
+        return super.getText() + "\n\tdeath = " + death;
     }
 }

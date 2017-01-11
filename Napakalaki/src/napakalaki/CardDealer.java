@@ -103,7 +103,7 @@ public class CardDealer {
         unusedMonster.add(new Monster("El rey de rosado",11,bc,new Prize(3,2),0));
         
         
-        bc = new NumericBadConsequence("Toses los pulmones y pierdes 2 niveles",2,0,0);
+        bc = new BadConsequence("Toses los pulmones y pierdes 2 niveles",2);
         unusedMonster.add(new Monster("Flecher",2,bc,new Prize(1,1),0));
         
         
@@ -121,7 +121,7 @@ public class CardDealer {
         unusedMonster.add(new Monster("Dameargo",1,bc,new Prize(2,1),0));
         
         
-        bc = new NumericBadConsequence("Da mucho asquito. Pierdes 3 niveles",3,0,0);
+        bc = new BadConsequence("Da mucho asquito. Pierdes 3 niveles",3);
         unusedMonster.add(new Monster("Pollipólipo volante",3,bc,new Prize(2,1),0));
         
         
@@ -163,17 +163,17 @@ public class CardDealer {
         bc = new DeathBadConsequence("Hoy no es tu día de suerte. Mueres",true);
         unusedMonster.add(new Monster("El gran cthulhu",20,bc,new Prize(2,5),4));
         
-        bc = new NumericBadConsequence("Tu gobierno te recorta 2 niveles",2,0,0);
+        bc = new BadConsequence("Tu gobierno te recorta 2 niveles",2);
         unusedMonster.add(new Monster("Serpiente Político",8,bc,new Prize(2,1),-2));
         
         bc = new SpecificBadConsequence("Pierdes tu casco y tu armadura visible. Pierdes tus manos ocultas",
             0,new ArrayList(Arrays.asList(TreasureKind.HELMET, TreasureKind.ARMOR)),new ArrayList(Arrays.asList(TreasureKind.ONEHAND,TreasureKind.ONEHAND,TreasureKind.BOTHHANDS)));
         unusedMonster.add(new Monster("Felpuggoth",2,bc,new Prize(1,1),5));
         
-        bc = new NumericBadConsequence("Pierdes 2 niveles",2,0,0);
+        bc = new BadConsequence("Pierdes 2 niveles",2);
         unusedMonster.add(new Monster("Shoggoth",16,bc,new Prize(4,2),-4));
         
-        bc = new NumericBadConsequence("Pintalabios negro. Pierdes 2 niveles",2,0,0);
+        bc = new BadConsequence("Pintalabios negro. Pierdes 2 niveles",2);
         unusedMonster.add(new Monster("Lolitagooth",2,bc,new Prize(1,1),3));
         
     }

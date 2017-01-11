@@ -57,6 +57,6 @@ public class NumericBadConsequence extends BadConsequence{
     public String toString(){
         return super.toString()
             + "\n\tn visible treasures = " + Integer.toString(nVisibleTreasures) 
-            + "\n\thidden treasures = " + Integer.toString(nHiddenTreasures) + "\n";
+            + "\n\tn hidden treasures = " + Integer.toString(nHiddenTreasures) + "\n";
     }
 }

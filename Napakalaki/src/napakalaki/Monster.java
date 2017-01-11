@@ -56,14 +56,14 @@ public class Monster {
     public String toString(){
         String mensaje = "Name = " + name + "\nCombat level = " 
                 + Integer.toString(combatLevel)
-                + "\nBad consecuences: " + bc.toString() 
+                + "\nBad consecuence: " + bc.toString() 
                 + "\nPrize: " + prize.toString();
         
         if (levelChangeAgainstCultistPlayer != 0){
             if (levelChangeAgainstCultistPlayer > 0)
                 mensaje += "\n\n+" + Integer.toString(levelChangeAgainstCultistPlayer);
             else
-                mensaje += "\n\n" + Integer.toString(levelChangeAgainstCultistPlayer);
+                mensaje += "\n\n-" + Integer.toString(levelChangeAgainstCultistPlayer);
             
             mensaje += " contra sectarios";
         }

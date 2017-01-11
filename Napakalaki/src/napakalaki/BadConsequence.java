@@ -30,4 +30,8 @@ public class BadConsequence {
     public int getLevels(){
         return levels;
     }
+    
+    public String toString(){
+        return text + "\n\tlevels = " + levels;
+    }
 }
