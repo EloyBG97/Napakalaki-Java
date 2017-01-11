@@ -61,9 +61,7 @@ public class Player {
     }
     
     protected boolean shouldConvert(){
-        int i = Dice.getInstance().nextNumber();
-        
-        return (i == 1);
+        return (Dice.getInstance().nextNumber() == 1);
     }
     
     private void incrementLevels(int l){
@@ -92,12 +90,12 @@ public class Player {
     private void applyBadConsequence(Monster m){
         BadConsequence badConsequence = m.getBadConsequence();
         decrementLevels(badConsequence.getLevels());
-        dead = badConsequence.getDeath();
+        //dead = badConsequence.getDeath();
         
-        BadConsequence pendingBad = badConsequence.adjustToFitTreasureList(visibleTreasures, hiddenTreasures);
+        //BadConsequence pendingBad = badConsequence.adjustToFitTreasureList(visibleTreasures, hiddenTreasures);
         
-        if (pendingBad != null && !pendingBad.isEmpty())
-            setPendingBadConsequence(pendingBad);
+        //if (pendingBad != null && !pendingBad.isEmpty())
+        //   setPendingBadConsequence(pendingBad);
     }
     
     private boolean canMakeTreasureVisible(Treasure t){
@@ -213,7 +211,7 @@ public class Player {
         visibleTreasures.remove(t);
         
         if(pendingBadConsequence != null && !pendingBadConsequence.isEmpty())
-            pendingBadConsequence.substractVisibleTreasure(t);
+        //  pendingBadConsequence.substractVisibleTreasure(t);
         
         this.dieIfNoTreasures();
     }
@@ -222,7 +220,7 @@ public class Player {
         hiddenTreasures.remove(t);
         
         if(pendingBadConsequence != null && !pendingBadConsequence.isEmpty())
-            pendingBadConsequence.substractVisibleTreasure(t);
+        //    pendingBadConsequence.substractVisibleTreasure(t);
         
         this.dieIfNoTreasures();
     }
@@ -260,7 +258,7 @@ public class Player {
     }
     
     public void applyPendingBadConsequence(){
-        ArrayList<Treasure> sVisible = new ArrayList<>(visibleTreasures);
+        /*ArrayList<Treasure> sVisible = new ArrayList<>(visibleTreasures);
         ArrayList<Treasure> sHidden = new ArrayList<>(hiddenTreasures);
         ArrayList<TreasureKind> pVisible = new ArrayList<>(pendingBadConsequence.getSpecificVisibleTreasures());
         ArrayList<TreasureKind> pHidden = new ArrayList<>(pendingBadConsequence.getSpecificHiddenTreasures());
@@ -284,7 +282,7 @@ public class Player {
         if (nHidden != 0)
             for (Treasure h : sHidden)
                 discardHiddenTreasure(h);
-        
+        */
         pendingBadConsequence = null;
     }
     

@@ -14,7 +14,7 @@ import java.util.Arrays;
  * 
  */
 public class PruebaNapakalaki {
-
+/*
     static ArrayList<Monster> monstruos = new ArrayList();
     
     public static void addMonsters(){
@@ -152,5 +152,5 @@ public class PruebaNapakalaki {
                 aux.add(monstruos.get(i));
         
         return aux;
-    }
+    }*/
 }
