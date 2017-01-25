@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package NapakalakiGame;
 
 import java.util.ArrayList;
 import java.util.Random;
+import GUI.Dice;
 
 /**
  *
@@ -29,17 +30,18 @@ public class Napakalaki {
     }
     
     private void initPlayer(ArrayList<String> names){
-        for (int i = 0 ; i < names.size() ; i++)
-            players.add(new Player(names.get(i)));
+        for (String n : names)
+            players.add(new Player(n));
         
         currentPlayer = nextPlayer();
     }
     
     private Player nextPlayer(){
+        Random rnd = new Random();
         int pos;
         
         if (jugada == 0)
-            pos = Dice.getInstance().nextNumber() % players.size();
+            pos = (rnd.nextInt(6) + 1) % players.size();
         else
             pos = (players.indexOf(currentPlayer) + 1) % players.size();
         

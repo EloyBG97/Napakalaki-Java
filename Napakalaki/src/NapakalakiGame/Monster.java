@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package NapakalakiGame;
 
 /**
  *
@@ -53,6 +53,10 @@ public class Monster {
         return combatLevel + levelChangeAgainstCultistPlayer;
     }
     
+    public int getLevelChangeAgainstCultistPlayer(){
+        return levelChangeAgainstCultistPlayer;
+    }
+    
     public String toString(){
         String mensaje = "Name = " + name + "\nCombat level = " 
                 + Integer.toString(combatLevel)
@@ -63,7 +67,7 @@ public class Monster {
             if (levelChangeAgainstCultistPlayer > 0)
                 mensaje += "\n\n+" + Integer.toString(levelChangeAgainstCultistPlayer);
             else
-                mensaje += "\n\n-" + Integer.toString(levelChangeAgainstCultistPlayer);
+                mensaje += "\n\n" + Integer.toString(levelChangeAgainstCultistPlayer);
             
             mensaje += " contra sectarios";
         }

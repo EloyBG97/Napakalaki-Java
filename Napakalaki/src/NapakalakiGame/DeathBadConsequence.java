@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package NapakalakiGame;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class DeathBadConsequence extends NumericBadConsequence{
     private boolean death;
     
     public DeathBadConsequence(String text, boolean death){
-        super(text,0,0,0);
+        super(text,0,MAXTREASURES,MAXTREASURES);
         this.death = death;
     }
     
@@ -25,6 +25,8 @@ public class DeathBadConsequence extends NumericBadConsequence{
     }
     
     public String toString(){
-        return super.getText() + "\n\tdeath = " + death;
+        return getText() 
+            + "\n\tlevels = " + getLevels()
+            + "\n\tdeath = " + death;
     }
 }

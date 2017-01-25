@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package NapakalakiGame;
 
 import java.util.ArrayList;
+import GUI.Dice;
+import java.util.Random;
 
 /**
  *
@@ -61,7 +63,7 @@ public class Player {
     }
     
     protected boolean shouldConvert(){
-        return (Dice.getInstance().nextNumber() == 1);
+        return (nextNumber() == 1);
     }
     
     private void incrementLevels(int l){
@@ -69,7 +71,10 @@ public class Player {
     }
     
     private void decrementLevels(int l){
-        level -= l;
+        if (level - l >= 1)
+            level -= l;
+        else
+            level = 1;
     }
     
     private void setPendingBadConsequence(BadConsequence b){
@@ -90,12 +95,10 @@ public class Player {
     private void applyBadConsequence(Monster m){
         BadConsequence badConsequence = m.getBadConsequence();
         decrementLevels(badConsequence.getLevels());
-        //dead = badConsequence.getDeath();
         
-        //BadConsequence pendingBad = badConsequence.adjustToFitTreasureList(visibleTreasures, hiddenTreasures);
+        BadConsequence pendingBad = badConsequence.adjustToFitTreasureList(visibleTreasures, hiddenTreasures);
         
-        //if (pendingBad != null && !pendingBad.isEmpty())
-        //   setPendingBadConsequence(pendingBad);
+        setPendingBadConsequence(pendingBad);
     }
     
     private boolean canMakeTreasureVisible(Treasure t){
@@ -142,7 +145,7 @@ public class Player {
     }
     
     protected Treasure giveMeATreasure(){
-        int pos = Dice.getInstance().nextNumber() % hiddenTreasures.size();
+        int pos = nextNumber() % hiddenTreasures.size();
         return hiddenTreasures.get(pos);
     }
     
@@ -163,11 +166,11 @@ public class Player {
     }
     
     public ArrayList<Treasure> getHiddenTreasures(){
-        return hiddenTreasures;
+        return new ArrayList(hiddenTreasures);
     }
     
     public ArrayList<Treasure> getVisibleTreasures(){
-        return visibleTreasures;
+        return new ArrayList(visibleTreasures);
     }
     
     public CombatResult combat(Monster m){
@@ -176,8 +179,7 @@ public class Player {
         int monsterLevel = getOponentLevel(m);
         
         if (!canISteal){
-            Dice dice = Dice.getInstance();
-            int number = dice.nextNumber();
+            int number = nextNumber();
             if (number < 3)
                 monsterLevel += enemy.getCombatLevel();
         }
@@ -211,7 +213,7 @@ public class Player {
         visibleTreasures.remove(t);
         
         if(pendingBadConsequence != null && !pendingBadConsequence.isEmpty())
-        //  pendingBadConsequence.substractVisibleTreasure(t);
+            pendingBadConsequence.substractVisibleTreasure(t);
         
         this.dieIfNoTreasures();
     }
@@ -220,27 +222,26 @@ public class Player {
         hiddenTreasures.remove(t);
         
         if(pendingBadConsequence != null && !pendingBadConsequence.isEmpty())
-        //    pendingBadConsequence.substractVisibleTreasure(t);
+            pendingBadConsequence.substractVisibleTreasure(t);
         
         this.dieIfNoTreasures();
     }
     
     public boolean validState(){
         if (pendingBadConsequence == null)
-            return (hiddenTreasures.size() <= 4);
+            return hiddenTreasures.size() <= 4;
         else
             return (hiddenTreasures.size() <= 4 && pendingBadConsequence.isEmpty());
     }
     
     public void initTreasures(){
         CardDealer dealer = CardDealer.getInstance();
-        Dice dice = Dice.getInstance();
         Treasure treasure;
         
         bringToLife();
         treasure = dealer.nextTreasure();
         hiddenTreasures.add(treasure);
-        int number = dice.nextNumber();
+        int number = nextNumber();
         
         if (number > 1){
             treasure = dealer.nextTreasure();
@@ -258,18 +259,18 @@ public class Player {
     }
     
     public void applyPendingBadConsequence(){
-        /*ArrayList<Treasure> sVisible = new ArrayList<>(visibleTreasures);
+        ArrayList<Treasure> sVisible = new ArrayList<>(visibleTreasures);
         ArrayList<Treasure> sHidden = new ArrayList<>(hiddenTreasures);
         ArrayList<TreasureKind> pVisible = new ArrayList<>(pendingBadConsequence.getSpecificVisibleTreasures());
         ArrayList<TreasureKind> pHidden = new ArrayList<>(pendingBadConsequence.getSpecificHiddenTreasures());
         int nVisible = pendingBadConsequence.getNVisibleTreasures();
         int nHidden = pendingBadConsequence.getNHiddenTreasures();
-        
+
         if (!pVisible.isEmpty())
             for(Treasure v : sVisible)
                 if (pVisible.contains(v.getType()))
                     discardVisibleTreasure(v);
-        
+
         if (!pHidden.isEmpty())
             for(Treasure h : sHidden)
                 if (pHidden.contains(h.getType()))
@@ -278,11 +279,11 @@ public class Player {
         if (nVisible != 0)
             for (Treasure v : sVisible)
                 discardVisibleTreasure(v);
-        
+
         if (nHidden != 0)
             for (Treasure h : sHidden)
                 discardHiddenTreasure(h);
-        */
+            
         pendingBadConsequence = null;
     }
     
@@ -303,7 +304,7 @@ public class Player {
         this.enemy = enemy;
     }
     
-    protected Player getEnemy(){
+    public Player getEnemy(){
         return enemy;
     }
     
@@ -338,5 +339,10 @@ public class Player {
             mensaje += "\nNo hay Bad Consequence pendiente";
         
         return mensaje;
+    }
+    
+    private int nextNumber(){
+        Random rnd = new Random();
+        return rnd.nextInt(6)+1;
     }
 }

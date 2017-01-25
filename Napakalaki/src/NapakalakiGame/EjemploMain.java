@@ -1,5 +1,5 @@
 
-package napakalaki;
+package NapakalakiGame;
 
 import Test.GameTester;
 

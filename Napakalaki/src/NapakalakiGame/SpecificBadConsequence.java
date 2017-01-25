@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package NapakalakiGame;
 
 import java.util.ArrayList;
 
@@ -22,15 +22,20 @@ public class SpecificBadConsequence extends BadConsequence{
         this.specificHiddenTreasures = new ArrayList(tHidden);
     }
     
+    public int getNVisibleTreasures(){
+        return 0;
+    }
+    
+    public int getNHiddenTreasures(){
+        return 0;
+    }
+    
     public ArrayList<TreasureKind> getSpecificHiddenTreasures(){
         return new ArrayList(specificHiddenTreasures);
     }
     
     public ArrayList<TreasureKind> getSpecificVisibleTreasures(){
         return new ArrayList(specificVisibleTreasures);
-    }
-    public boolean isEmpty() {
-        return (specificVisibleTreasures.isEmpty() && specificHiddenTreasures.isEmpty());
     }
     
     public void substractVisibleTreasure(Treasure T){
@@ -39,6 +44,10 @@ public class SpecificBadConsequence extends BadConsequence{
     
     public void substractHiddenTreasure(Treasure T){
         specificHiddenTreasures.remove(T.getType());
+    }
+    
+    public boolean isEmpty(){
+        return (specificVisibleTreasures.isEmpty() && specificHiddenTreasures.isEmpty());
     }
     
     public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){
@@ -63,14 +72,14 @@ public class SpecificBadConsequence extends BadConsequence{
         }
         
         if (!sVisible.isEmpty() || !sHidden.isEmpty())
-            bad = new SpecificBadConsequence(super.getText(),0,sVisible,sHidden);
+            bad = new SpecificBadConsequence(getText(),0,sVisible,sHidden);
         
         return bad;
     }
     
     public String toString(){
-        return super.toString() 
-            + "\n\tvisible treasures = " + specificVisibleTreasures.toString() 
-            + "\n\thidden treasures = " + specificHiddenTreasures.toString() + "\n";
+        return super.toString()
+            + "\n\tVisible treasures = " + specificVisibleTreasures.toString() 
+            + "\n\tHidden treasures = " + specificHiddenTreasures.toString();
     }
 }

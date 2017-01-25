@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package NapakalakiGame;
 
 /**
  *
@@ -33,6 +33,6 @@ public class Treasure {
     }
     
     public String toString(){
-        return ("\t" + name + "\t[" + type + ", +" + bonus + " ]");
+        return (name + "\t[" + type + ", +" + bonus + " ]");
     }
 }

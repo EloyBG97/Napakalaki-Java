@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package NapakalakiGame;
 
 import java.util.ArrayList;
 
@@ -30,33 +30,48 @@ public class NumericBadConsequence extends BadConsequence{
     public int getNHiddenTreasures(){
         return nHiddenTreasures;
     }
-    public boolean isEmpty() {
+    
+    public ArrayList<TreasureKind> getSpecificHiddenTreasures(){
+        return new ArrayList();
+    }
+    
+    public ArrayList<TreasureKind> getSpecificVisibleTreasures(){
+        return new ArrayList();
+    }
+    
+    public void substractVisibleTreasure(Treasure T){ }
+    
+    public void substractHiddenTreasure(Treasure T){ }
+    
+    public boolean isEmpty(){
         return (nVisibleTreasures == 0 && nHiddenTreasures == 0);
     }
     
     public BadConsequence adjustToFitTreasureList(ArrayList<Treasure> v, ArrayList<Treasure> h ){
         BadConsequence bad = null;
         int nVisible = 0, nHidden = 0;
+        int vSize = v.size();
+        int hSize = h.size();
         
-        if (nVisibleTreasures > v.size())
-            nVisible = v.size();
-        else if (nVisibleTreasures > 0)
-            nVisible = nVisibleTreasures - v.size();
+        if (nVisibleTreasures >= vSize)
+            nVisible = vSize;
+        else if (nVisibleTreasures < vSize)
+            nVisible = nVisibleTreasures;
         
-        if (nHiddenTreasures > h.size())
-            nHidden = h.size();
-        else if (nHiddenTreasures > 0)
-            nHidden = nHiddenTreasures - h.size();
-        
+        if (nHiddenTreasures >= hSize)
+            nHidden = hSize;
+        else if (nHiddenTreasures < hSize)
+            nHidden = nHiddenTreasures;
+                
         if (nVisible != 0 || nHidden != 0)
-            bad = new NumericBadConsequence(super.getText(),0,nVisible,nHidden);
+            bad = new NumericBadConsequence(getText(),0,nVisible,nHidden);
         
         return bad;
     }
     
     public String toString(){
         return super.toString()
-            + "\n\tn visible treasures = " + Integer.toString(nVisibleTreasures) 
-            + "\n\tn hidden treasures = " + Integer.toString(nHiddenTreasures) + "\n";
+            + "\n\tVisible treasures = " + Integer.toString(nVisibleTreasures)
+            + "\n\tHidden treasures = " + Integer.toString(nHiddenTreasures);
     }
 }

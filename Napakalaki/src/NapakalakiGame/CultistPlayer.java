@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package napakalaki;
+package NapakalakiGame;
+
+import GUI.Dice;
+import java.util.Random;
 
 /**
  *
@@ -32,6 +35,10 @@ public class CultistPlayer extends Player{
         return (int)lvl;
     }
     
+    public Cultist getCultistCard(){
+        return myCultistCard;
+    }
+    
     protected int getOponentLevel(Monster m){
         return m.getCombatLevelAgainstCultistPlayer();
     }
@@ -41,7 +48,9 @@ public class CultistPlayer extends Player{
     }
     
     protected Treasure giveMeATreasure(){
-        int pos = Dice.getInstance().nextNumber() % getVisibleTreasures().size();
+        Random rnd = new Random();
+        int pos = (rnd.nextInt(6) + 1) % getVisibleTreasures().size();
+        
         return getVisibleTreasures().get(pos);
     }
     
