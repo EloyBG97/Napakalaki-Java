@@ -23,7 +23,7 @@ public class MonsterView extends javax.swing.JPanel {
     public void setMonster(Monster m){
         monsterModel = m;
         this.name.setText(m.getName());
-        this.level.setText(Integer.toString(m.getLevelsGained()));
+        this.level.setText(Integer.toString(m.getCombatLevel()));
         int sect = m.getLevelChangeAgainstCultistPlayer();
         if (sect > 0)
             this.CultistLevel.setText("+" + Integer.toString(sect) + " contra sectarios");

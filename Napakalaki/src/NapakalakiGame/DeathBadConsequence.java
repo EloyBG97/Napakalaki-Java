@@ -5,8 +5,6 @@
  */
 package NapakalakiGame;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Adri

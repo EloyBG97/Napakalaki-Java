@@ -6,7 +6,6 @@
 package NapakalakiGame;
 
 import GUI.Dice;
-import java.util.Random;
 
 /**
  *
@@ -48,8 +47,7 @@ public class CultistPlayer extends Player{
     }
     
     protected Treasure giveMeATreasure(){
-        Random rnd = new Random();
-        int pos = (rnd.nextInt(6) + 1) % getVisibleTreasures().size();
+        int pos = Dice.getInstance().nextNumber("Llamada en metodo", "giveMeATreasure") % getVisibleTreasures().size();
         
         return getVisibleTreasures().get(pos);
     }

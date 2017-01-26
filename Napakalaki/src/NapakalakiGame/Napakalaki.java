@@ -37,11 +37,10 @@ public class Napakalaki {
     }
     
     private Player nextPlayer(){
-        Random rnd = new Random();
         int pos;
         
         if (jugada == 0)
-            pos = (rnd.nextInt(6) + 1) % players.size();
+            pos = Dice.getInstance().nextNumber("Llamada en metodo", "nextPlayer") % players.size();
         else
             pos = (players.indexOf(currentPlayer) + 1) % players.size();
         

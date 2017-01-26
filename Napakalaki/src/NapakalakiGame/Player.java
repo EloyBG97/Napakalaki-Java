@@ -63,7 +63,7 @@ public class Player {
     }
     
     protected boolean shouldConvert(){
-        return (nextNumber() == 1);
+        return (Dice.getInstance().nextNumber("Llamada en metodo", "shouldConvert") == 1);
     }
     
     private void incrementLevels(int l){
@@ -145,7 +145,7 @@ public class Player {
     }
     
     protected Treasure giveMeATreasure(){
-        int pos = nextNumber() % hiddenTreasures.size();
+        int pos = Dice.getInstance().nextNumber("Llamada en metodo", "giveMeATreasure") % hiddenTreasures.size();
         return hiddenTreasures.get(pos);
     }
     
@@ -179,7 +179,7 @@ public class Player {
         int monsterLevel = getOponentLevel(m);
         
         if (!canISteal){
-            int number = nextNumber();
+            int number = Dice.getInstance().nextNumber("Llamada en metodo", "Combat");
             if (number < 3)
                 monsterLevel += enemy.getCombatLevel();
         }
@@ -241,7 +241,7 @@ public class Player {
         bringToLife();
         treasure = dealer.nextTreasure();
         hiddenTreasures.add(treasure);
-        int number = nextNumber();
+        int number = Dice.getInstance().nextNumber("Llamada en metodo", "initTreasures");
         
         if (number > 1){
             treasure = dealer.nextTreasure();
@@ -339,10 +339,5 @@ public class Player {
             mensaje += "\nNo hay Bad Consequence pendiente";
         
         return mensaje;
-    }
-    
-    private int nextNumber(){
-        Random rnd = new Random();
-        return rnd.nextInt(6)+1;
     }
 }
